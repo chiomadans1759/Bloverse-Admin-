@@ -114,8 +114,8 @@ export default {
 }
 
 .users-profile .login-area img {
-	height:70px;
-	width:70px;
+	height:80px;
+	width:80px;
 	border-radius: 50%;
 	object-fit: cover;
 	background-size: cover;
