@@ -11,8 +11,7 @@ export default new VueRouter({
 			path: '/auth',
 			component: () => import('@/layouts/Blank.vue'),
 			children: [
-				{ path: '', name: 'Auth', component: () => import('@/views/Auth.vue') },
-				{ path: 'users-profile', name: 'UsersProfile', component: () => import('@/components/UsersProfile.vue') }
+				{ path: '', name: 'Auth', component: () => import('@/views/Auth.vue') }
 			]
 		},
 		{
