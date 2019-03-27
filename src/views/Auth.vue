@@ -1,5 +1,5 @@
 <template> 
-	<div class="admin-auth">  
+	<div class="admin-auth container-fluid">  
 		<div class="login-area row d-flex justify-content-center align-items-center">
 			<div class="col-md-4 col-sm-6 col-xs-8">
 				<div class="d-flex justify-content-center">
@@ -15,7 +15,7 @@
 							required 
 						> 
 						<input
-							type="text"
+							type="password"
 							id="input-Password"
 							class="form-control mt-3"
 							placeholder="Password"
@@ -23,15 +23,15 @@
 						> 
 						<button
 							class="btn btn-primary btn-block mt-3"
-							type="submit"
+							type="button"
 						>Sign In</button>
 					</form>  
 				</div>
 			</div>
 		</div> 
-		<div class="auth-footer d-flex justify-content-center footer">
+		<!-- <div class="auth-footer d-flex justify-content-center footer">
 			<p><span>Bloverse </span> 2018. All Rights Reserved</p>
-		</div>
+		</div> -->
 	</div>
 </template>
 
@@ -42,12 +42,8 @@ export default {
 </script>
 
 <style scoped>
-.admin-auth {
-	background:#F5F5F5;  
-}
-
 .admin-auth .login-area {
-	height: calc(100vh - 40px);;  
+	height: calc(100vh - 40px);
 }
 
 .admin-auth img {

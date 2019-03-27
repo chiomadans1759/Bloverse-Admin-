@@ -30,8 +30,7 @@ export default {
 }
 
 #blank-layout footer {
-  position: relative;
-  top: 93vh;
+  font-size: 12px;
 }
 
 #blank-layout footer #brand {
