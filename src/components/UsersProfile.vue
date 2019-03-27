@@ -174,6 +174,5 @@ export default {
 .users-profile .fa-circle {
 	font-size:8px;
 }
- 
 </style>
 
