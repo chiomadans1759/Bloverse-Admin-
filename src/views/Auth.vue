@@ -12,6 +12,7 @@
 							id="inputEmail"
 							class="form-control"
 							placeholder="Email"
+							v-model="email"
 							required 
 						> 
 						<input
@@ -19,25 +20,59 @@
 							id="input-Password"
 							class="form-control mt-3"
 							placeholder="Password"
+							v-model="password"
 							required 
 						> 
 						<button
 							class="btn btn-primary btn-block mt-3"
 							type="button"
+							@click.prevent="loginUser" 
+							:disabled="!formIsValid || disable == true"
 						>Sign In</button>
 					</form>  
 				</div>
 			</div>
 		</div> 
-		<!-- <div class="auth-footer d-flex justify-content-center footer">
+		<div class="auth-footer d-flex justify-content-center footer">
 			<p><span>Bloverse </span> 2018. All Rights Reserved</p>
-		</div> -->
+		</div>
 	</div>
 </template>
 
-<script>
-export default {
-	name: "admin-auth"
+<script>  
+import { mapActions } from 'vuex' 
+
+export default { 
+  name: "admin-auth",
+  data(){
+    return{
+			 email:'',
+			 password:'',
+			 disable: false 
+		 }
+	},
+	computed: {
+    formIsValid(){
+			const exp = /\S+@\S+\.\S+/;
+			return this.email && this.password && exp.test(this.email)
+		}
+	},
+	methods: {
+		...mapActions(['loginAdmin']),
+
+		async loginUser(){
+			if(this.formIsValid){
+				this.disable = true
+				const response = await this.loginAdmin({email: this.email, password: this.password})
+				this.disable = false
+				if(response === true){  
+					this.$router.push("/account/dashboard")
+				}
+				else
+				  alert('User does not exist')
+			}
+		}
+	}
 }
 </script>
 

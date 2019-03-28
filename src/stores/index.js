@@ -6,20 +6,24 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    admin_token: {}
+    admin_token: {},
+    accessToken:  localStorage.getItem('admin_token') ||  ''
   },
   actions: {
     async loginAdmin({ commit }, payload) {
+      
       try {
+        
         let res = await Api.post('auth/login', payload)
         if(res.status == "success") {
-          commit("setAdmin", res.data.token)
+          localStorage.setItem("bloverse_user_token", res.data.token)
+          commit("setAdmin", res.data.token) 
           return true
         }else {
           let response = { status: res.status, message: res.data }
           return response
         }
-      }catch(e) {
+      }catch(e) { 
         let response = { status: "fail", message: e }
         return response
       }
