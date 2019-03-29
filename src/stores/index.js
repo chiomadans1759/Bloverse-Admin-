@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    admin_token: {}
+    admin_token: {},
+    user:{}
   },
   actions: {
     async loginAdmin({ commit }, payload) {
@@ -23,7 +24,8 @@ export default new Vuex.Store({
         let response = { status: "fail", message: e }
         return response
       }
-    }
+    },
+
   },
   mutations: {
     setAdmin(state, token) {
