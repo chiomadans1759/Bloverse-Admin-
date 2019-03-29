@@ -342,7 +342,7 @@ export default {
 #users-section .category-footer {
     position: fixed;
     bottom: 0;
-    right: 8.5%;
+    right: 8.2%;
     left: 20.7%;
     background: #ffffff;
     height: auto;
