@@ -201,34 +201,33 @@
                 </tr>
               </tbody>
             </table>
-              <div class="card category-footer">
-                <div class="row">
-                  <div class="container">
-                    <div class="d-flex justify-content-between">
-                      <div class="mt-2 ml-3 btn-div">
-                      <button class="btn btn-outline-primary btn-sm mr-4" type="button">Remove</button>
-                      <button class="btn btn-sm btn-primary">Process</button>
-                    </div>
-                    <div class="mt-2 mr-3 mb-1">
-                      <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                              <i class="fas fa-angle-left"></i>
-                            </a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                              <i class="fas fa-angle-right"></i>
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
-                    </div>
+            <div class="card category-footer">
+              <div class="row">
+                <div class="container">
+                  <div class="d-flex justify-content-between">
+                    <div class="mt-2 ml-3 btn-div">
+                    <button disabled class="btn btn-outline-primary btn-sm mr-2" type="button">Remove</button>
+                    <button disabled class="btn btn-sm btn-primary">Process</button>
+                  </div>
+                  <div class="mt-2 mr-3 mb-1">
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination">
+                        <li class="page-item">
+                          <a class="page-link" href="#" aria-label="Previous">
+                            <i class="fas fa-angle-left"></i>
+                          </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                          <a class="page-link" href="#" aria-label="Next">
+                            <i class="fas fa-angle-right"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -236,6 +235,7 @@
           </div>
         </div>
       </div>
+    </div>
   </main>
 </template>
 
@@ -251,7 +251,6 @@ export default {
 </script>
 
 <style scoped>
-
 #users-section h5 {
   font-size: 1.25rem;
   font-weight: 600;
@@ -288,7 +287,6 @@ export default {
 #users-section .taskbar span {
   color: #252525
 }
-
 
 #users-section .search-bar {
   border: 0.063rem solid rgba(0, 0, 0, .15);
@@ -344,11 +342,12 @@ export default {
 #users-section .category-footer {
     position: fixed;
     bottom: 0;
-    right: 6.67%;
-    left: 6.67%;
+    right: 8.5%;
+    left: 20.7%;
     background: #ffffff;
     height: auto;
     margin-bottom: -1rem;
+    border-radius: 0px;
 }
 
 #users-section .btn-div{
