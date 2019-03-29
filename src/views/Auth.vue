@@ -65,11 +65,11 @@ export default {
 				this.disable = true
 				const response = await this.loginAdmin({email: this.email, password: this.password})
 				this.disable = false
-				if(response === true){  
+				if(response.status === 200){  
 					this.$router.push("/account/dashboard")
+				}else {
+					alert('User does not exist')
 				}
-				else
-				  alert('User does not exist')
 			}
 		}
 	}

@@ -13,16 +13,15 @@ export default new Vuex.Store({
     async loginAdmin({ commit }, payload) {
       
       try {
-        
         let res = await Api.post('auth/login', payload)
         if(res.status == "success") {
-          localStorage.setItem("bloverse_user_token", res.data.token)
+          localStorage.setItem("bloverse_admin_token", res.data.token)
           commit("setAdmin", res.data.token) 
-          return true
         }else {
           let response = { status: res.status, message: res.data }
           return response
         }
+        return res
       }catch(e) { 
         let response = { status: "fail", message: e }
         return response
