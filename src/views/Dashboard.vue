@@ -71,6 +71,9 @@ export default {
   },
   methods: {
     ...mapActions(["getAllCreators"])
+  },
+  created() {
+    this.getAllCreators(1)
   }
 }
 </script>
