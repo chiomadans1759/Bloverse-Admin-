@@ -14,5 +14,6 @@ export default {
 
 #app {
   font-family: 'Montserrat', sans-serif;
+  background: #F5F5F5;
 }
 </style>
