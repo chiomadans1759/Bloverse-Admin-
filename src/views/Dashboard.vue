@@ -63,7 +63,16 @@
 </template>
 
 <script>
-export default {};
+import { mapActions } from 'vuex'
+
+export default {
+  data() {
+    return {}
+  },
+  methods: {
+    ...mapActions(["getAllCreators"])
+  }
+}
 </script>
 
 <style scoped>
