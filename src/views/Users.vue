@@ -13,15 +13,63 @@
           <div class="taskbar">
             <div class="d-flex justify-content-start">
               <p>Show</p>
-              <span class="pl-3 dropdown-toggle" data-toggle="dropdown">100</span>
+              <span class="pl-3 dropdown">100</span>
+               <a
+                href="#"
+                class="text-muted"
+              >
+                <div class="dropdown">
+                  <i
+                    class="fas fa-chevron-down pl-1"
+                    id="dropdownMenu"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  ></i>
+
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenu"
+                    style="margin-left: -8rem;margin-top:.5rem"
+                  >
+                    <router-link to="" class="dropdown-item"><Accepted /> Accepted</router-link>
+                    <router-link to="" class="dropdown-item"><Pending /> Pending</router-link>
+                    <router-link to="" class="dropdown-item"><Rejected /> Rejected</router-link>
+                  </div>
+                </div>
+              </a>
             </div>
             <div class="d-flex justify-content-end">
               <input type="search" placeholder="Search by Names..." class="search-bar">
               <div class="ml-4 mt-1">
-                <p class="dropdown-toggle" data-toggle="dropdown">
+                <p>
                   Status: 
                 <span>All</span>
                 <span class="badge badge-primary ml-2 text-white">61</span>
+                 <a
+                href="#"
+                class="text-muted"
+              >
+                <span class="dropdown">
+                  <i
+                    class="fas fa-chevron-down pl-1"
+                    id="dropdownMenu"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  ></i>
+
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenu"
+                    style="margin-left: -8rem;margin-top:.5rem"
+                  >
+                    <router-link to="" class="dropdown-item"><Accepted /> Accepted <span class="badge badge-primary ml-2 text-white">31</span></router-link>
+                    <router-link to="" class="dropdown-item"><Pending /> Pending <span class="badge badge-primary ml-2 text-white">28</span></router-link>
+                    <router-link to="" class="dropdown-item"><Rejected /> Rejected <span class="badge badge-primary ml-2 text-white">2</span></router-link>
+                  </div>
+                </span>
+              </a>
               </p>
               </div>
             </div>
@@ -34,7 +82,7 @@
                   <th scope="col">Name</th>
                   <th scope="col">Category <extra-small-button><i class="fas fa-filter btn-item"></i></extra-small-button></th>
                   <th scope="col">Country <extra-small-button><i class="fas fa-filter btn-item"></i></extra-small-button></th>
-                  <th scope="col">Followers <extra-small-button><i class="fas fa-filter btn-item"></i></extra-small-button></th>
+                  <th scope="col">Followers <extra-small-button><i class="fas fa-angle-up btn-item"></i></extra-small-button></th>
                   <th scope="col">Status</th>
                 </tr>
               </thead>
@@ -311,6 +359,15 @@ export default {
 
 #users-section .first {
   width: 2.938rem;
+}
+
+#users-section .drop-links {
+  flex-direction: column;
+}
+
+#users-section .drop-links a{
+  text-decoration: none;
+  color: #000000;
 }
 
 #users-section .user-table {
