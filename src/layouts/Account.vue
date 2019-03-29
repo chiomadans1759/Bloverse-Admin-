@@ -1,6 +1,5 @@
 <template>
   <div class="account">
-
     <div class="account-sidebar">
       <AccountSidebar />
     </div>

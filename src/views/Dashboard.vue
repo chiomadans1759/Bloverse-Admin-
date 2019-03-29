@@ -7,32 +7,33 @@
           <div class="card-body blue-right">
             <div class="card-body-first">
               <span class="pl-3 letter">28</span>
-              <div class="pl-3 pill-area light-weight">Pending
-                <span class="badge badge-pill badge-primary letter-badge">15 New</span>
-              </div>
+              <div class="pl-3 pill-area light-weight">Pending</div>
             </div>
-            <i class="fas fa-chevron-circle-right mr-3"></i>
+            <a href="">
+              <i class="fas fa-chevron-circle-right mr-3"></i>
+            </a>
           </div>
         </div>
         <div class="card  my-2">
           <div class="card-body green-right">
             <div class="card-body-first">
               <span class="pl-3 letter">31</span>
-              <div class="pl-3 pill-area light-weight">Accepted
-              </div>
+              <div class="pl-3 pill-area light-weight">Accepted</div>
             </div>
-            <i class="fas fa-chevron-circle-right mr-3"></i>
+            <a href="">
+              <i class="fas fa-chevron-circle-right mr-3"></i>
+            </a>
           </div>
         </div>
         <div class="card  mt-2 mb-3">
           <div class="card-body red-right">
             <div class="card-body-first">
               <span class="pl-3 letter">7</span>
-              <div class="pl-3 pill-area light-weight">Rejected
-                <span class="badge badge-pill badge-primary letter-badge">15 New</span>
-              </div>
+              <div class="pl-3 pill-area light-weight">Rejected</div>
             </div>
-            <i class="fas fa-chevron-circle-right mr-3"></i>
+            <a href="">
+              <i class="fas fa-chevron-circle-right mr-3"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -51,7 +52,9 @@
                 </div>
               </div>
             </div>
-            <i class="second-arrow fas fa-chevron-circle-right mr-3"></i>
+            <a href="">
+              <i class="second-arrow fas fa-chevron-circle-right mr-3"></i>
+            </a>
           </div>
         </div>
       </div>

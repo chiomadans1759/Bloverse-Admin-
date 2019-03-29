@@ -12,22 +12,35 @@
     </nav>
     <ul
       class="sidebar-area mt-4"
-      style="list-style:none; padding:15px 25px"
-    >
+      style="list-style:none; padding:15px 25px">
       <li>
         <i class="fas fa-chart-pie"></i>
-        <a style="text-decoration:none" href class="ml-3"> Dashboard </a>
+        <router-link 
+          to="" 
+          :class="{'ml-3': true, 'text-muted': currentRoute != 'Dashboard', 'text-dark': currentRoute == 'Dashboard'}">
+          Dashboard 
+        </router-link>
       </li>
       <li>
         <i class="fas fa-users"></i>
-        <a style="text-decoration:none" href class="ml-3">Users</a>
+        <router-link 
+          to="" 
+          :class="{'ml-3': true, 'text-muted': currentRoute != 'Users', 'text-dark': currentRoute == 'Users'}">
+          Users
+        </router-link>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    currentRoute() {
+      return this.$route.name
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -56,6 +69,11 @@ export default {};
   align-items: center;
 }
 
+.sidebar .sidebar-area li a:hover {
+  text-decoration: none;
+  color: #333333 !important;
+}
+
 .sidebar .fas {
   color: #096dd9;
 }
@@ -64,7 +82,7 @@ export default {};
   line-height: 0;
 }
 
-.sidebar a{
+.sidebar a {
   color: #333333
 }
 </style>
