@@ -44,6 +44,7 @@ export default {
   position: fixed;
   height: 100vh;
 }
+
 .account .account-header {
   float: right;
   width: 85%;
