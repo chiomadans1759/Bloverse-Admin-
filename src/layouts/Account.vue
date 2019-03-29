@@ -9,7 +9,7 @@
       <div class="account-container">
         <div class="container row justify-content-center">
           <div class="col-md-11">
-            <dashboard />
+            <router-view />
           </div>
         </div>
       </div>
@@ -18,27 +18,19 @@
 </template>
 
 <script>
-import Dashboard from "@/views/Dashboard.vue";
-import AccountHeader from "@/components/AccountHeader.vue";
-import AccountSidebar from "@/components/AccountSidebar";
+import AccountHeader from "@/components/AccountHeader.vue"
+import AccountSidebar from "@/components/AccountSidebar"
 
 export default {
   components: {
     AccountHeader,
-    AccountSidebar,
-    Dashboard
+    AccountSidebar
   },
   name: "account-layout"
 };
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-#account-layout {
-  width: 100%;
-  height: 100vh;
-  overflow-y: hidden;
-=======
 .account .account-container {
   background: #f5f5f5;
   min-height: 100vh;
@@ -54,6 +46,5 @@ export default {
 .account .account-header {
   float: right;
   width: 85%;
->>>>>>> 7093933b59868e959e3cc280e2768908b2a45056
 }
 </style>

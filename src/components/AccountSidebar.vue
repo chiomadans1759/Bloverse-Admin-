@@ -16,7 +16,7 @@
       <li>
         <i class="fas fa-chart-pie"></i>
         <router-link 
-          to="" 
+          to="/account/dashboard" 
           :class="{'ml-3': true, 'text-muted': currentRoute != 'Dashboard', 'text-dark': currentRoute == 'Dashboard'}">
           Dashboard 
         </router-link>
@@ -24,7 +24,7 @@
       <li>
         <i class="fas fa-users"></i>
         <router-link 
-          to="" 
+          to="/account/users" 
           :class="{'ml-3': true, 'text-muted': currentRoute != 'Users', 'text-dark': currentRoute == 'Users'}">
           Users
         </router-link>
