@@ -12,10 +12,10 @@ export default new Vuex.Store({
     accepted_creators: {},
     rejected_creators: {},
     total_creators: {
-      all: {},
-      pending: {},
-      accepted: {},
-      rejected: {}
+      all: 0,
+      pending: 0,
+      accepted: 0,
+      rejected: 0
     }
   },
   actions: {
