@@ -74,7 +74,7 @@ export default {
   },
   created() {
     this.getAllCreators()
-
+    
     setInterval(async () => {
       await this.getAllCreators()
       await this.getPendingCreators()
@@ -178,4 +178,8 @@ export default {
   margin-top: 120px;
 }
 
+<<<<<<< HEAD
 </style>
+=======
+</style>
+>>>>>>> cf4afd324bed690c103d8201737613c4f273dea0
