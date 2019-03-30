@@ -1,58 +1,63 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="navbar navbar-header">
+    <div class="logo-container">
+      <i class="fas fa-bars toggle"></i>
+    </div>
+    <span class="navbar-nav mr-auto pl-2">Colapse</span>
+    <div class="user-logo">
+      <span>SM</span>
+    </div>
+    <a
+      href="#"
+      class="text-muted"
+    >
+      <div class="dropdown">
+        <i
+          class="fas fa-chevron-down pl-1"
+          id="dropdownMenu"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        ></i>
+
+        <div
+          class="dropdown-menu"
+          aria-labelledby="dropdownMenu"
+          style="margin-left: -8rem;margin-top:.5rem"
+        >
+          <router-link
+            to=""
+            class="dropdown-item"
+          > <i class="fas fa-power-off px-1"></i> Sign Out</router-link>
+        </div>
+      </div>
+    </a>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
+export default {};
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.navbar-header .logo-container {
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  padding: 5px 10px 4px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.navbar-header .toggle {
+  color: #096dd9;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+.navbar-header span {
+  font-size: 12px;
 }
-a {
-  color: #42b983;
+.navbar-header .user-logo {
+  border-radius: 50%;
+  background: chocolate;
+  color: white;
+  padding: 5px 9px;
+}
+.navbar-header .fa-power-off {
+  color: #ff2737;
 }
 </style>

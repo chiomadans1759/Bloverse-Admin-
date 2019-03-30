@@ -8,12 +8,12 @@ class Api {
     try {
       let config = {
         headers: {
-          'Authorization': `Token ${store.state.auth.jwt}`
+          'Authorization': `Token ${localStorage.getItem('bloverse_admin_token')}`
         }
       }
       let response = requireAuth ? await axios.get(API_URL + url, config) : await axios.get(API_URL + url)
       return response.data
-    } catch (error) {
+    } catch (error) { 
       return error
     }
   }
@@ -22,12 +22,12 @@ class Api {
     try {
       let config = {
         headers: {
-          'Authorization': `Token ${store.state.auth.jwt}`
+          'Authorization': `Token ${localStorage.getItem('bloverse_admin_token')}`
         }
       }
       let response = requireAuth ? await axios.post(API_URL + url, payload, config) : await axios.post(API_URL + url, payload)
       return response
-    } catch (error) {
+    } catch (error) { 
       return error
     }
   }
@@ -36,12 +36,12 @@ class Api {
     try {
       let config = {
         headers: {
-          'Authorization': `Token ${store.state.auth.jwt}`
+          'Authorization': `Token ${localStorage.getItem('bloverse_admin_token')}`
         }
       }
       let response = requireAuth ? await axios.put(API_URL + url, payload, config) : await axios.put(API_URL + url, payload)
       return response
-    } catch (error) {
+    } catch (error) { 
       return error
     }
   }
