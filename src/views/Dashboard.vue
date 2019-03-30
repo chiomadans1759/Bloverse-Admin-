@@ -66,20 +66,18 @@
 import { mapActions, mapState } from 'vuex'
 
 export default {
-  computed:{
-    ...mapState(["total_creators"]),
-   },
-
   methods: {
     ...mapActions(["getAllCreators"]),
   },
-
   created() {
     this.getAllCreators()
 
     setInterval(async () => {
       await this.getAllCreators()
     }, 10000)
+  },
+  computed:{
+    ...mapState(["total_creators"]),
   }
 }
 </script>
