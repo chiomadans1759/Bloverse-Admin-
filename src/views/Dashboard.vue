@@ -67,10 +67,12 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
   methods: {
-    ...mapActions(["getAllCreators",
-    "getPendingCreators",
-    "getAcceptedCreators",
-    "getRejectedCreators"]),
+    ...mapActions([
+      "getAllCreators",
+      "getPendingCreators",
+      "getAcceptedCreators",
+      "getRejectedCreators"
+    ]),
   },
   created() {
     this.getAllCreators()
@@ -177,9 +179,4 @@ export default {
 .dashboard .second-arrow {
   margin-top: 120px;
 }
-
-<<<<<<< HEAD
 </style>
-=======
-</style>
->>>>>>> cf4afd324bed690c103d8201737613c4f273dea0
