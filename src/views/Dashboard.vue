@@ -6,7 +6,7 @@
         <div class="card mt-3 mb-1">
           <div class="card-body blue-right">
             <div class="card-body-first">
-              <span class="pl-3 letter">28</span>
+              <span class="pl-3 letter">{{total_creators.pending}}</span>
               <div class="pl-3 pill-area light-weight">Pending</div>
             </div>
             <a href="">
@@ -17,7 +17,7 @@
         <div class="card  my-2">
           <div class="card-body green-right">
             <div class="card-body-first">
-              <span class="pl-3 letter">31</span>
+              <span class="pl-3 letter">{{total_creators.accepted}}</span>
               <div class="pl-3 pill-area light-weight">Accepted</div>
             </div>
             <a href="">
@@ -28,7 +28,7 @@
         <div class="card  mt-2 mb-3">
           <div class="card-body red-right">
             <div class="card-body-first">
-              <span class="pl-3 letter">7</span>
+              <span class="pl-3 letter">{{total_creators.rejected}}</span>
               <div class="pl-3 pill-area light-weight">Rejected</div>
             </div>
             <a href="">
@@ -42,7 +42,7 @@
         <div class="card  mt-2 mb-3  mr-3">
           <div class="card-body">
             <div class="second-card-body-first">
-              <div class="second-main-text pl-3 my-3">65</div>
+              <div class="second-main-text pl-3 my-3">{{total_creators.all}}</div>
               <div class="second-bottom pt-2">
                 <i class="ml-3 green-arrow fas fa-long-arrow-alt-up"></i>
                 <div>
@@ -63,17 +63,29 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
-  data() {
-    return {}
-  },
   methods: {
-    ...mapActions(["getAllCreators"])
+    ...mapActions([
+      "getAllCreators",
+      "getPendingCreators",
+      "getAcceptedCreators",
+      "getRejectedCreators"
+    ]),
   },
   created() {
-    this.getAllCreators(1)
+    this.getAllCreators()
+    
+    setInterval(async () => {
+      await this.getAllCreators()
+      await this.getPendingCreators()
+      await this.getAcceptedCreators()
+      await this.getRejectedCreators()
+    }, 10000)
+  },
+  computed:{
+    ...mapState(["total_creators"]),
   }
 }
 </script>
@@ -167,5 +179,4 @@ export default {
 .dashboard .second-arrow {
   margin-top: 120px;
 }
-
 </style>
