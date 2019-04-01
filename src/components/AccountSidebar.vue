@@ -10,21 +10,19 @@
         <span class="ml-2 logo-header">bloverse</span>
       </div>
     </nav>
-    <ul
-      class="sidebar-area mt-4"
-      style="list-style:none; padding:15px 25px">
-      <li>
+    <ul class="sidebar-area mt-4">
+      <li :class="{'active': currentRoute == 'Dashboard'}">
         <i class="fas fa-chart-pie"></i>
         <router-link 
-          to="" 
+          to="/account/dashboard" 
           :class="{'ml-3': true, 'text-muted': currentRoute != 'Dashboard', 'text-dark': currentRoute == 'Dashboard'}">
           Dashboard 
         </router-link>
       </li>
-      <li>
+      <li :class="{'active': currentRoute == 'Users'}">
         <i class="fas fa-users"></i>
         <router-link 
-          to="" 
+          to="/account/users" 
           :class="{'ml-3': true, 'text-muted': currentRoute != 'Users', 'text-dark': currentRoute == 'Users'}">
           Users
         </router-link>
@@ -63,6 +61,11 @@ export default {
   border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.sidebar .sidebar-area {
+  list-style:none; 
+  padding: 15px 0px 0px 25px;
+}
+
 .sidebar .sidebar-area li {
   margin-bottom: 32px;
   display: flex;
@@ -84,5 +87,9 @@ export default {
 
 .sidebar a {
   color: #333333
+}
+
+.sidebar .active {
+  border-right: 5px solid #096dd9;
 }
 </style>
