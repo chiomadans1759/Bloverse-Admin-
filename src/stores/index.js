@@ -19,7 +19,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async loginAdmin(payload) {
+    async loginAdmin({ commit }, payload) {
       try {
         let res = await Api.post('auth/login', payload)
         if(res.data.status == "success") {
