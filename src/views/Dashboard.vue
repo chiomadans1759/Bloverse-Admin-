@@ -46,8 +46,8 @@
               <div class="second-bottom pt-2">
                 <i class="ml-3 green-arrow fas fa-long-arrow-alt-up"></i>
                 <div>
-                  <div class="pl-3 pb-2 light-weight">Active: <b>56</b></div>
-                  <div class="pl-3 light-weight mb-3">Inactive: <b>5</b>
+                  <div class="pl-3 pb-2 light-weight">Active: <b>{{total_creators.active}}</b></div>
+                  <div class="pl-3 light-weight mb-3">Inactive: <b>{{total_creators.pending}}</b>
                   </div>
                 </div>
               </div>
@@ -74,14 +74,19 @@ export default {
       "getRejectedCreators"
     ]),
   },
-  created() {
-    this.getAllCreators()
+  async created() {
+    await this.getAllCreators()
+    await this.getPendingCreators()
+    await this.getAcceptedCreators()
+    await this.getRejectedCreators()
+    await this.getActiveCreators()
     
     setInterval(async () => {
       await this.getAllCreators()
       await this.getPendingCreators()
       await this.getAcceptedCreators()
       await this.getRejectedCreators()
+      await this.getActiveCreators()
     }, 10000)
   },
   computed:{

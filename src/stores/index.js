@@ -15,7 +15,8 @@ export default new Vuex.Store({
       all: 0,
       pending: 0,
       accepted: 0,
-      rejected: 0
+      rejected: 0,
+      active: 0
     }
   },
   actions: {
@@ -24,6 +25,7 @@ export default new Vuex.Store({
         let res = await Api.post('auth/login', payload)
         if(res.data.status == "success") {
           localStorage.setItem("bloverse_admin_token", res.data.data.token)
+          localStorage.setItem("bloverse_admin_user_details", JSON.stringify(res.data.data.user))
           return res
         }else {
           let response = { status: res.status, message: res.data }
@@ -53,6 +55,16 @@ export default new Vuex.Store({
     async getRejectedCreators({ commit }, page) {
       let res = await Api.get(`users?role=CREATOR&status=REJECTED&LIMIT=10&page=${page}`, true)
       commit("setRejectedCreators", res.data)
+    },
+
+    async getActiveCreators({ commit }, page) {
+      let res = await Api.get(`users?role=CREATOR&status=ACTIVE&LIMIT=10&page=${page}`, true)
+      commit("setActiveCreators", res.data)
+    },
+
+    adminLogout({ commit }) {
+      localStorage.removeItem('bloverse_admin_token')
+      commit("nulifyAdminDetails")
     }
   },
   mutations: {
@@ -74,6 +86,14 @@ export default new Vuex.Store({
     setRejectedCreators(state, creators) {
       state.total_creators.rejected = creators.total
       state.rejected_creators = creators.users
+    },
+
+    setActiveCreators(state, creators) {
+      state.total_creators.active = creators.total
+    },
+
+    nulifyAdminDetails(state) {
+      state.admin_details = {}
     }
   },
   getters: {}

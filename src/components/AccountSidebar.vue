@@ -5,8 +5,7 @@
         <img
          class="ml-1"
           src="/assets/logo2.svg"
-          alt=""
-        >
+          alt="Bloverse Logo">
         <span class="ml-2 logo-header">bloverse</span>
       </div>
     </nav>

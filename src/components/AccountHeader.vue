@@ -5,7 +5,9 @@
     </div>
     <span class="navbar-nav mr-auto pl-2">Colapse</span>
     <div class="user-logo">
-      <span>SM</span>
+      <span>
+        {{`${admin_details.first_name.substring(0, 1)}${admin_details.last_name.substring(0, 1)}`}}
+      </span>
     </div>
     <a
       href="#"
@@ -23,12 +25,13 @@
         <div
           class="dropdown-menu"
           aria-labelledby="dropdownMenu"
-          style="margin-left: -8rem;margin-top:.5rem"
-        >
-          <router-link
-            to=""
+          style="margin-left: -8rem; margin-top: .5rem">
+          <a
+            href="#"
             class="dropdown-item"
-          > <i class="fas fa-power-off px-1"></i> Sign Out</router-link>
+            @click.prevent="logout"> 
+            <i class="fas fa-power-off px-1"></i> Sign Out
+          </a>
         </div>
       </div>
     </a>
@@ -36,7 +39,26 @@
 </template>
 
 <script>
-export default {};
+import { mapActions, mapState } from "vuex"
+
+export default {
+  data() {
+    return {
+      admin_details: {}
+    }
+  },
+  methods: {
+    ...mapActions(['adminLogout']),
+
+    logout() {
+      this.adminLogout()
+      this.$router.push('/')
+    }
+  },
+  created() {
+    this.admin_details = JSON.parse(localStorage.getItem("bloverse_admin_user_details"))
+  }
+}
 </script>
 
 <style scoped>
