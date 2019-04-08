@@ -156,7 +156,7 @@ export default {
     ...mapActions([
       'getCreators',
       'getCreatorDetails'
-      ]),
+    ]),
 
     async fetchCreators(type) {
       switch(type) {
@@ -182,10 +182,6 @@ export default {
     async viewCreatorDetails(id) {
       await this.getCreatorDetails(id)
       $(".bd-example-modal-lg").modal("show")
-    },
-
-    changeStatus(status) {
-
     }
   },
   created() {

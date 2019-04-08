@@ -82,7 +82,7 @@ export default {
       await this.getCreators('PENDING')
       await this.getCreators('REJECTED')
       await this.getCreators('ACTIVE')
-    }, 10000)
+    }, 50000)
   },
   computed:{
     ...mapState(["total_creators"]),
