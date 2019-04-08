@@ -46,10 +46,10 @@ export default {
   name: "admin-auth",
   data(){
     return{
-			 email:'',
-			 password:'',
-			 disable: false 
-		 }
+			email:'',
+			password:'',
+			disable: false 
+		}
 	},
 	computed: {
     formIsValid(){
