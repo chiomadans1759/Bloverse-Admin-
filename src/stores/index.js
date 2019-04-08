@@ -17,7 +17,8 @@ export default new Vuex.Store({
       accepted: 0,
       rejected: 0,
       active: 0
-    }
+    },
+    current_creator: {}
   },
   actions: {
     async loginAdmin({ commit }, payload) {
@@ -37,29 +38,39 @@ export default new Vuex.Store({
       }
     },
 
-    async getAllCreators({ commit }, page) {
-      let res = await Api.get(`users?role=CREATOR&LIMIT=10&page=${page}`, true)
-      commit("setAllCreators", res.data)
+    async getCreators({ commit }, status, limit, page) {
+      if(status == 'ALL') {
+        let res = await Api.get(`users?role=CREATOR&limit=10&page=${page}`, true)
+        commit("setAllCreators", res.data)
+      }else {
+        let res = await Api.get(`users?role=CREATOR&status=${status}&limit=${limit}&page=${page}`, true)
+        switch(status) {
+          case 'ACCEPTED':
+            commit("setAcceptedCreators", res.data)
+          case 'PENDING':
+            commit("setPendingCreators", res.data)
+          case 'REJECTED':
+            commit("setRejectedCreators", res.data)
+          case 'ACTIVE':
+            commit("setActiveCreators", res.data)
+        }
+      }
     },
 
-    async getPendingCreators({ commit }, page) {
-      let res = await Api.get(`users?role=CREATOR&status=APPLIED&LIMIT=10&page=${page}`, true)
-      commit("setPendingCreators", res.data)
+    async getCreatorDetails({ commit }, userId) {
+      let res = await Api.get(`users/${userId}`, true)
+      commit("setCurrentCreator", res.data.user)
     },
 
-    async getAcceptedCreators({ commit }, page) {
-      let res = await Api.get(`users?role=CREATOR&status=ACCEPTED&LIMIT=10&page=${page}`, true)
-      commit("setAcceptedCreators", res.data)
-    },
-
-    async getRejectedCreators({ commit }, page) {
-      let res = await Api.get(`users?role=CREATOR&status=REJECTED&LIMIT=10&page=${page}`, true)
-      commit("setRejectedCreators", res.data)
-    },
-
-    async getActiveCreators({ commit }, page) {
-      let res = await Api.get(`users?role=CREATOR&status=ACTIVE&LIMIT=10&page=${page}`, true)
-      commit("setActiveCreators", res.data)
+    async updateUserStatus({ commit }, data) {
+      let payload = { status: data.status }
+      let res = await Api.put(`users/${data.id}`, payload, true)
+      if(res.status == 'success') {
+        commit("setCurrentCreator", res.data.user)
+        return true
+      }else {
+        return false
+      }
     },
 
     adminLogout({ commit }) {
@@ -90,6 +101,10 @@ export default new Vuex.Store({
 
     setActiveCreators(state, creators) {
       state.total_creators.active = creators.total
+    },
+
+    setCurrentCreator(state, creator) {
+      state.current_creator = creator
     },
 
     nulifyAdminDetails(state) {

@@ -67,26 +67,21 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
   methods: {
-    ...mapActions([
-      "getAllCreators",
-      "getPendingCreators",
-      "getAcceptedCreators",
-      "getRejectedCreators"
-    ]),
+    ...mapActions(['getCreators']),
   },
   async created() {
-    await this.getAllCreators()
-    await this.getPendingCreators()
-    await this.getAcceptedCreators()
-    await this.getRejectedCreators()
-    await this.getActiveCreators()
+    await this.getCreators('ALL')
+    await this.getCreators('ACCEPTED')
+    await this.getCreators('PENDING')
+    await this.getCreators('REJECTED')
+    await this.getCreators('ACTIVE')
     
     setInterval(async () => {
-      await this.getAllCreators()
-      await this.getPendingCreators()
-      await this.getAcceptedCreators()
-      await this.getRejectedCreators()
-      await this.getActiveCreators()
+      await this.getCreators('ALL')
+      await this.getCreators('ACCEPTED')
+      await this.getCreators('PENDING')
+      await this.getCreators('REJECTED')
+      await this.getCreators('ACTIVE')
     }, 10000)
   },
   computed:{

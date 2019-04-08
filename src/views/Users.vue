@@ -1,286 +1,127 @@
 <template>
-  <main id="users-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-6">
-          <h5>Users</h5>
-          <div class="my-5 choose-content">
-            <button class="btn btn-sm btn-primary creator">Content Creator</button>
-            <button class="btn btn-light consumer">Content Consumer</button>
+  <main id="users">
+    <header class="pt-4">
+      <h5 class="font-weight-bold">Users</h5>
+    </header>
+
+    <nav class="pt-4"> 
+      <button class="btn btn-primary rounded-0 mr-2">Content Creator</button>
+      <button class="btn btn-link text-dark rounded-0 ml-2">Content Consumer</button>
+    </nav>
+
+    <nav class="row pt-5">
+      <div class="col d-flex">
+        <span class="text-muted mt-2">Showing:</span>
+        <div class="dropdown">
+          <button class="btn btn-link text-dark dropdown-toggle pt-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            10
+          </button>
+          <div class="dropdown-menu rounded-0 py-0" style="min-width: 5%;">
+            <a class="dropdown-item" href="#">20</a>
+            <a class="dropdown-item" href="#">30</a>
+            <a class="dropdown-item" href="#">40</a>
+            <a class="dropdown-item" href="#">50</a>
           </div>
         </div>
-        <div class="col-12">
-          <div class="taskbar">
-            <div class="d-flex justify-content-start">
-              <p>Show</p>
-              <span class="pl-3 dropdown">100</span>
-               <a
-                href="#"
-                class="text-muted"
-              >
-                <div class="dropdown">
-                  <i
-                    class="fas fa-chevron-down pl-1"
-                    id="dropdownMenu"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  ></i>
+      </div>
 
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenu"
-                    style="margin-left: -8rem;margin-top:.5rem"
-                  >
-                    <router-link to="" class="dropdown-item"><Accepted /> Accepted</router-link>
-                    <router-link to="" class="dropdown-item"><Pending /> Pending</router-link>
-                    <router-link to="" class="dropdown-item"><Rejected /> Rejected</router-link>
-                  </div>
-                </div>
-              </a>
+      <div class="col-auto">
+        <input type="text" class="form-control rounded-0" placeholder="Search by names...">
+      </div>
+
+      <div class="col-auto d-flex">
+        <span class="text-muted mt-2">Status:</span>
+        <div class="dropdown">
+          <button class="btn btn-link text-dark dropdown-toggle pt-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            All 
+            <div class="badge badge-primary">
+              <span v-if="creator_type == 'all'">{{all_creators.length || 0}}</span>
+              <span v-if="creator_type == 'accepted'">{{accepted_creators.length}}</span>
+              <span v-if="creator_type == 'pending'">{{pending_creators.length}}</span>
+              <span v-if="creator_type == 'rejected'">{{rejected_creators.length}}</span>
             </div>
-            <div class="d-flex justify-content-end">
-              <input type="search" placeholder="Search by Names..." class="search-bar">
-              <div class="ml-4 mt-1">
-                <p>
-                  Status: 
-                <span>All</span>
-                <span class="badge badge-primary ml-2 text-white">61</span>
-                 <a
-                href="#"
-                class="text-muted"
-              >
-                <span class="dropdown">
-                  <i
-                    class="fas fa-chevron-down pl-1"
-                    id="dropdownMenu"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  ></i>
+          </button>
+          <div class="dropdown-menu rounded-0">
+            <a class="dropdown-item pl-3" href="#" @click.prevent="getCreators('all')">
+              <span class="rounded-circle bg-primary px-2 mr-2"></span> All
+            </a>
+            <a class="dropdown-item pl-3" href="#" @click.prevent="getCreators('accepted')">
+              <span class="rounded-circle bg-success px-2 mr-2"></span> Accepted
+            </a>
+            <a class="dropdown-item pl-3" href="#" @click.prevent="getCreators('pending')">
+              <span class="rounded-circle bg-warning px-2 mr-2"></span> Pending
+            </a>
+            <a class="dropdown-item pl-3" href="#" @click.prevent="getCreators('rejected')">
+              <span class="rounded-circle bg-danger px-2 mr-2"></span> Rejected
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
 
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenu"
-                    style="margin-left: -8rem;margin-top:.5rem"
-                  >
-                    <router-link to="" class="dropdown-item"><Accepted /> Accepted <span class="badge badge-primary ml-2 text-white">31</span></router-link>
-                    <router-link to="" class="dropdown-item"><Pending /> Pending <span class="badge badge-primary ml-2 text-white">28</span></router-link>
-                    <router-link to="" class="dropdown-item"><Rejected /> Rejected <span class="badge badge-primary ml-2 text-white">2</span></router-link>
-                  </div>
+    <div class="row pt-4">
+      <div class="col-12">
+        <table class="table table-bordered">
+          <thead>
+            <tr class="head-text">
+              <th scope="col">FullName</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Country</th>
+              <th scope="col">Followers</th>
+              <th scope="col">Status</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr v-for="creator in creators" :key="creator.id">
+              <td class="pt-3">{{creator.first_name}} {{creator.last_name}}</td>
+              <td class="pt-3">{{creator.gender}}</td>
+              <td class="pt-3">{{creator.location}}</td>
+              <td class="pt-3">0</td>
+              <td class="text-muted pt-3">
+                <span :class="{
+                    'btn btn-sm rounded-circle py-2': true,
+                    'btn-primary': creator.status == 'APPLIED',
+                    'btn-success': creator.status == 'ACCEPTED',
+                    'btn-danger': creator.status == 'REJECTED'
+                  }" style="margin-top: -6px;">
                 </span>
-              </a>
-              </p>
-              </div>
-            </div>
-          </div>
-          <div class="user-table">
-            <table class="table table-bordered">
-              <thead>
-                <tr class="head-text">
-                  <th scope="col" class="first"><input type="checkbox" /></th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Category <extra-small-button><i class="fas fa-filter btn-item"></i></extra-small-button></th>
-                  <th scope="col">Country <extra-small-button><i class="fas fa-filter btn-item"></i></extra-small-button></th>
-                  <th scope="col">Followers <extra-small-button><i class="fas fa-angle-up btn-item"></i></extra-small-button></th>
-                  <th scope="col">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                  <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Pending />Pending</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Rejected />Rejected</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Rejected />Rejected</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Pending />Pending</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-                <tr>
-                  <th scope="row"><input type="checkbox" /></th>
-                   <td>Full Name</td>
-                  <td>Category</td>
-                  <td>Country</td>
-                  <td>5</td>
-                  <td><Accepted />Accepted</td>
-                </tr>
-              </tbody>
-            </table>
-            <div class="card category-footer">
-              <div class="row">
-                <div class="container">
-                  <div class="d-flex justify-content-between">
-                    <div class="mt-2 ml-3 btn-div">
-                    <button disabled class="btn btn-outline-primary btn-sm mr-2" type="button">Remove</button>
-                    <button disabled class="btn btn-sm btn-primary">Process</button>
-                  </div>
-                  <div class="mt-2 mr-3 mb-1">
-                    <nav aria-label="Page navigation example">
-                      <ul class="pagination">
-                        <li class="page-item">
-                          <a class="page-link" href="#" aria-label="Previous">
-                            <i class="fas fa-angle-left"></i>
-                          </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                          <a class="page-link" href="#" aria-label="Next">
-                            <i class="fas fa-angle-right"></i>
-                          </a>
-                        </li>
-                      </ul>
-                    </nav>
-                  </div>
-                  </div>
+                {{creator.status}}
+              </td>
+              <td>
+                <button class="btn btn-primary" @click.prevent="viewCreatorDetails(creator.id)">
+                  {{creator.first_name}} details
+                </button>
+              </td>
+            </tr>
+          </tbody>
+          
+          <footer class="card rounded-0 border-left-0 border-right-0 pt-2">
+            <div class="row justify-content-center">
+              <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-outline-primary">
+                    <i class="fa fa-chevron-left"></i>
+                  </button>
+                  <button type="button" class="btn btn-outline-primary">1</button>
+                  <button type="button" class="btn btn-outline-primary">2</button>
+                  <button type="button" class="btn btn-outline-primary">3</button>
+                  <button type="button" class="btn btn-outline-primary">
+                    <i class="fa fa-chevron-right"></i>
+                  </button>
                 </div>
               </div>
             </div>
-          </div>
+          </footer>
+        </table>
+      </div>
+    </div>
+
+    <!-- View Details Modal -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content p-4">
+          <user-profile :creator="current_creator" />
         </div>
       </div>
     </div>
@@ -288,137 +129,84 @@
 </template>
 
 <script>
-import ExtraSmallButton from '@/components/ExtraSmallButton.vue'
-import Pending from '@/components/StatusCircle/Pending.vue'
-import Accepted from '@/components/StatusCircle/Accepted'
-import Rejected from '@/components/StatusCircle/Rejected'
+import { mapActions, mapState } from 'vuex'
+import UserProfile from '@/components/UserProfile'
 
 export default {
-  components: { ExtraSmallButton, Pending, Accepted, Rejected }
+  name: 'users',
+  components: { UserProfile },
+  data() {
+    return {
+      creators: {},
+      creator_type: 'all',
+      current_creator: {},
+      limit: 10,
+      page: 1
+    }
+  },
+  computed: {
+    ...mapState([
+      'all_creators',
+      'pending_creators',
+      'accepted_creators',
+      'rejected_creators'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'getCreators',
+      'getCreatorDetails'
+      ]),
+
+    async fetchCreators(type) {
+      switch(type) {
+        case 'accepted':
+          await this.getCreators('ACCEPTED', this.limit, this.page)
+          this.creators = this.accepted_creators
+          this.creator_type = 'accepted'
+        case 'pending':
+          await this.getCreators('PENDING', this.limit, this.page)
+          this.creators = this.pending_creators
+          this.creator_type = 'pending'
+        case 'rejected':
+          await this.getCreators('REJECTED', this.limit, this.page)
+          this.creators = this.rejected_creators
+          this.creator_type = 'rejected'
+        default:
+          await this.getCreators('ALL', this.limit, this.page)
+          this.creators = this.all_creators
+          this.creator_type = 'all'
+      }
+    },
+
+    async viewCreatorDetails(id) {
+      await this.getCreatorDetails(id)
+      $(".bd-example-modal-lg").modal("show")
+    },
+
+    changeStatus(status) {
+
+    }
+  },
+  created() {
+    this.fetchCreators()
+  }
 }
 </script>
 
 <style scoped>
-#users-section h5 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-top: 1rem;
+#users footer.card {
+  width: 73%;
+  height: 3.5rem;
+  position: fixed;
+  bottom: 0px;
 }
 
-#users-section .choose-content {
-  display: flex;
-  justify-content: space-between;
-  width: 60%;
-}
-
-#users-section .creator {
-  background: #096DD9;
-  border-radius: 0;
-  border: 0.063rem solid rgba(0, 0, 0, .15);
-}
-
-#users-section .consumer {
-  color: #565656;
-  border: none;
-  background: transparent;
-}
-
-#users-section .taskbar {
-  display: flex;
-  justify-content: space-between;
-}
-
-#users-section .taskbar p {
-  color: #868686;
-}
-
-#users-section .taskbar span {
-  color: #252525
-}
-
-#users-section .search-bar {
-  border: 0.063rem solid rgba(0, 0, 0, .15);
-  padding: 0.625rem;
-  width: 18.875rem;
-  height: 2.375rem;
-  font-size: 0.875rem;
-}
-
-#users-section .search-bar::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #B7B7B7;
-}
-#users-section .search-bar::-moz-placeholder { /* Firefox 19+ */
-  color: #B7B7B7;
-}
-#users-section .search-bar:-ms-input-placeholder { /* IE 10+ */
-  color: #B7B7B7;
-}
-#users-section .search-bar:-moz-placeholder { /* Firefox 18- */
-  color: #B7B7B7;
-}
-
-#users-section .first {
-  width: 2.938rem;
-}
-
-#users-section .drop-links {
-  flex-direction: column;
-}
-
-#users-section .drop-links a{
+#users .btn-link:hover,
+#users .btn-link:focus,
+#users .btn-link:active,
+#users .btn-link:after {
   text-decoration: none;
-  color: #000000;
-}
-
-#users-section .user-table {
-  overflow: auto;
-  height: 29rem;
-}
-
-#users-section table {
-  background-color: #ffffff;
-  margin-top: 1.438rem;
-  padding-bottom: 5rem;
-}
-
-#users-section th {
-  color: #252525;
-}
-
-#users-section .head-text {
-  background: #F5F5F5;
-}
-
-#users-section .btn-item {
-  color: #096DD9;
-  font-size: 0.7rem;
-  display: flex;
-  justify-content: center;
-}
-
-#users-section .category-footer {
-    position: fixed;
-    bottom: 0;
-    right: 8.2%;
-    left: 20.7%;
-    background: #ffffff;
-    height: auto;
-    margin-bottom: -1rem;
-    border-radius: 0px;
-}
-
-#users-section .btn-div{
-  bottom: 0;
-}
-
-#users-section input[type='checkbox']:checked{
-  width: 0.8rem;
-  height: 0.8rem;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-  appearance:none;
-  outline: 1px solid #096DD9;
-  background: #FFFFFF;
 }
 </style>
+
