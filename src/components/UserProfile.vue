@@ -88,20 +88,23 @@
 
 				<div class="default-tags my-4 px-3">
 					<h5>Interest</h5>
+					<p v-if="current_creator.categories.length < 1">-</p>
 					<button
 						class="btn btn-outline-secondary mr-2 mb-2"
-						v-for="(tag, index) in tags"
+						v-else
+						v-for="(category, index) in current_creator.categories"
 						:key="index"
-					>{{tag}}</button>
+					>{{category.name}}</button>
 				</div>
 
 				<div class="country-tags my-4 px-3">
 					<h5>Country</h5>
+					<p v-if="current_creator.countries.length < 1">-</p>
 					<button
-						v-for="(country, index) in countries"
+						v-else
+						v-for="(country, index) in current_creator.countries"
 						:key="index"
-						class="btn btn-outline-secondary mr-2 mb-2"
-					>
+						class="btn btn-outline-secondary mr-2 mb-2">
 						<img :src="country.img_url" class="mr-2">
 						{{country.name}}
 					</button>
@@ -125,7 +128,7 @@
 										type="button" 
 										class="btn btn-success ml-2" 
 										@click="changeStatus('ACCEPTED')">
-							Success
+							Accept
 						</button>
 					</div>
 				</div>
@@ -139,41 +142,6 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   name: "user-profile",
-  data() {
-    return {
-      tags: [
-        "Nigeria",
-        "Kenya",
-        "Technology",
-        "Australia",
-        "South Africa",
-        "Category"
-      ],
-      countries: [
-        {
-          name: "Nigeria",
-          img_url: "/assets/nigeria.jpg"
-        },
-        {
-          name: "Mexico",
-          img_url: "/assets/mexico.jpg"
-        },
-        {
-          name: "Ghana",
-          img_url: "/assets/ghana.jpg"
-        },
-        {
-          name: "France",
-          img_url: "/assets/france.jpg"
-        },
-        {
-          name: "UK",
-          img_url: "/assets/uk.jpg"
-        }
-      ],
-      status: "pending"
-    };
-  },
   methods: {
 		...mapActions(['updateUserStatus']),
 		
