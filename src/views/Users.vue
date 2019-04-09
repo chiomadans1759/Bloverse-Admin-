@@ -186,6 +186,10 @@ export default {
   },
   created() {
     this.fetchCreators()
+
+    setInterval(() => { 
+      this.fetchCreators()
+    }, 50000)
   }
 }
 </script>
