@@ -62,7 +62,7 @@
 						<span>University</span>
 						<div class="text-dark">
 							<p v-if="current_creator.universities.length > 0">
-								{{current_creator.universities[0]}}
+								{{current_creator.universities[0].name}}
 							</p>
 							<p v-else>-</p>
 						</div>

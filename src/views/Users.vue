@@ -33,7 +33,7 @@
         <span class="text-muted mt-2">Status:</span>
         <div class="dropdown">
           <button class="btn btn-link text-dark dropdown-toggle pt-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            All 
+            {{creator_type}} 
             <div class="badge badge-primary">
               <span v-if="creator_type == 'all'">{{all_creators.length || 0}}</span>
               <span v-if="creator_type == 'accepted'">{{accepted_creators.length}}</span>
@@ -42,16 +42,16 @@
             </div>
           </button>
           <div class="dropdown-menu rounded-0">
-            <a class="dropdown-item pl-3" href="#" @click.prevent="getCreators('all')">
+            <a class="dropdown-item pl-3" href="#" @click.prevent="fetchCreators()">
               <span class="rounded-circle bg-primary px-2 mr-2"></span> All
             </a>
-            <a class="dropdown-item pl-3" href="#" @click.prevent="getCreators('accepted')">
+            <a class="dropdown-item pl-3" href="#" @click.prevent="fetchCreators('accepted')">
               <span class="rounded-circle bg-success px-2 mr-2"></span> Accepted
             </a>
-            <a class="dropdown-item pl-3" href="#" @click.prevent="getCreators('pending')">
+            <a class="dropdown-item pl-3" href="#" @click.prevent="fetchCreators('pending')">
               <span class="rounded-circle bg-warning px-2 mr-2"></span> Pending
             </a>
-            <a class="dropdown-item pl-3" href="#" @click.prevent="getCreators('rejected')">
+            <a class="dropdown-item pl-3" href="#" @click.prevent="fetchCreators('rejected')">
               <span class="rounded-circle bg-danger px-2 mr-2"></span> Rejected
             </a>
           </div>
@@ -90,7 +90,7 @@
               </td>
               <td>
                 <button class="btn btn-primary" @click.prevent="viewCreatorDetails(creator.id)">
-                  {{creator.first_name}} details
+                  {{creator.first_name}}'s details
                 </button>
               </td>
             </tr>
@@ -164,18 +164,22 @@ export default {
           await this.getCreators('ACCEPTED', this.limit, this.page)
           this.creators = this.accepted_creators
           this.creator_type = 'accepted'
+          break
         case 'pending':
           await this.getCreators('PENDING', this.limit, this.page)
           this.creators = this.pending_creators
           this.creator_type = 'pending'
+          break
         case 'rejected':
           await this.getCreators('REJECTED', this.limit, this.page)
           this.creators = this.rejected_creators
           this.creator_type = 'rejected'
+          break
         default:
           await this.getCreators('ALL', this.limit, this.page)
           this.creators = this.all_creators
           this.creator_type = 'all'
+          break
       }
     },
 
@@ -186,10 +190,6 @@ export default {
   },
   created() {
     this.fetchCreators()
-
-    setInterval(() => { 
-      this.fetchCreators()
-    }, 50000)
   }
 }
 </script>
