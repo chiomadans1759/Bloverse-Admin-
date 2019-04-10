@@ -14,13 +14,14 @@
         <span class="text-muted mt-2">Showing:</span>
         <div class="dropdown">
           <button class="btn btn-link text-dark dropdown-toggle pt-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            10
+            {{limit}}
           </button>
           <div class="dropdown-menu rounded-0 py-0" style="min-width: 5%;">
-            <a class="dropdown-item" href="#">20</a>
-            <a class="dropdown-item" href="#">30</a>
-            <a class="dropdown-item" href="#">40</a>
-            <a class="dropdown-item" href="#">50</a>
+            <a class="dropdown-item" href="#" @click.prevent="setLimit(10)">10</a>
+            <a class="dropdown-item" href="#" @click.prevent="setLimit(20)">20</a>
+            <a class="dropdown-item" href="#" @click.prevent="setLimit(30)">30</a>
+            <a class="dropdown-item" href="#" @click.prevent="setLimit(40)">40</a>
+            <a class="dropdown-item" href="#" @click.prevent="setLimit(50)">50</a>
           </div>
         </div>
       </div>
@@ -102,6 +103,7 @@
                 <button 
                   type="button" 
                   class="btn btn-outline-primary"
+                  @click="fetchByPage('previous', this.creator_type)"
                   :disabled="current_page == 1">
                   <i class="fa fa-chevron-left"></i>
                 </button>
@@ -113,12 +115,14 @@
                       'btn-light': page == current_page 
                     }" 
                     v-for="(page, index) in total_pages" :key="index"
-                    :disabled="total_pages == 1">
+                    :disabled="total_pages == 1"
+                    @click="fetchByPage(page, this.creator_type)">
                   {{page}}
                 </button>
                 <button 
                   type="button" 
                   class="btn btn-outline-primary"
+                  @click="fetchByPage('next', this.creator_type)"
                   :disabled="total_pages < 2">
                   <i class="fa fa-chevron-right"></i>
                 </button>
@@ -183,30 +187,48 @@ export default {
     async fetchCreators(type) {
       switch(type) {
         case 'accepted':
-          await this.getCreators('ACCEPTED', this.limit, this.page)
+          await this.getCreators('ACCEPTED', this.limit, this.current_page)
           this.creators = this.accepted_creators
           this.creator_type = 'accepted'
           this.totalPages(this.accepted_creators.length)
           break
         case 'pending':
-          await this.getCreators('PENDING', this.limit, this.page)
+          await this.getCreators('PENDING', this.limit, this.current_page)
           this.creators = this.pending_creators
           this.creator_type = 'pending'
           this.totalPages(this.pending_creators.length)
           break
         case 'rejected':
-          await this.getCreators('REJECTED', this.limit, this.page)
+          await this.getCreators('REJECTED', this.limit, this.current_page)
           this.creators = this.rejected_creators
           this.creator_type = 'rejected'
           this.totalPages(this.rejected_creators.length)
           break
         default:
-          await this.getCreators('ALL', this.limit, this.page)
+          await this.getCreators('ALL', this.limit, this.current_page)
           this.creators = this.all_creators
           this.creator_type = 'all'
           this.totalPages(this.all_creators.length)
           break
       }
+    },
+
+    fetchByPage(nav, type) {
+      if(nav == 'previous') {
+        this.current_page = +1
+        this.fetchCreators(type)
+      }else if(nav == 'next') {
+        this.current_page = -1
+        this.fetchCreators(type)
+      }else {
+        this.current_page = nav
+        this.fetchCreators(type)
+      }
+    },
+
+    setLimit(limit, type) {
+      this.limit = limit
+      this.fetchCreators(type)
     },
 
     async viewCreatorDetails(id) {

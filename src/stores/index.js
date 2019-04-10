@@ -18,7 +18,7 @@ export default new Vuex.Store({
       rejected: 0,
       active: 0
     },
-    current_creator: {}
+    current_creator: null
   },
   actions: {
     async loginAdmin({ commit }, payload) {
