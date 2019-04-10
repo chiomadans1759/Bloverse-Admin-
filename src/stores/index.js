@@ -47,12 +47,16 @@ export default new Vuex.Store({
         switch(status) {
           case 'ACCEPTED':
             commit("setAcceptedCreators", res.data)
+            break
           case 'PENDING':
             commit("setPendingCreators", res.data)
+            break
           case 'REJECTED':
             commit("setRejectedCreators", res.data)
+            break
           case 'ACTIVE':
             commit("setActiveCreators", res.data)
+            break
         }
       }
     },

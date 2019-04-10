@@ -118,13 +118,13 @@
 					</div>
 
 					<div class="col-auto">
-						<button :disabled="disable = true || current_creator.status == 'REJECTED' || current_creator.status == 'ACCEPTED'"
+						<button :disabled="disable == true || current_creator.status == 'REJECTED' || current_creator.status == 'ACCEPTED'"
 							type="button" 
 							class="btn btn-danger mr-2" 
 							@click="changeStatus('REJECTED')">
 							Reject
 						</button>
-						<button :disabled="disable = true || current_creator.status == 'ACCEPTED' || current_creator.status == 'REJECTED'" 
+						<button :disabled="disable == true || current_creator.status == 'ACCEPTED' || current_creator.status == 'REJECTED'" 
 										type="button" 
 										class="btn btn-success ml-2" 
 										@click="changeStatus('ACCEPTED')">
