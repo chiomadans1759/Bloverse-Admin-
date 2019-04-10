@@ -112,7 +112,7 @@
                     :class="{ 
                       'btn': true, 
                       'btn-outline-primary': page != current_page, 
-                      'btn-light': page == current_page 
+                      'btn-primary': page == current_page 
                     }" 
                     v-for="(page, index) in total_pages" :key="index"
                     :disabled="total_pages == 1"
