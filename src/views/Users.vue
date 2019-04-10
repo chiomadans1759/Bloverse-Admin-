@@ -65,7 +65,6 @@
           <thead>
             <tr class="head-text">
               <th scope="col">FullName</th>
-              <th scope="col">Gender</th>
               <th scope="col">Country</th>
               <th scope="col">Followers</th>
               <th scope="col">Status</th>
@@ -75,7 +74,6 @@
           <tbody class="bg-white">
             <tr v-for="creator in creators" :key="creator.id">
               <td class="pt-3">{{creator.first_name}} {{creator.last_name}}</td>
-              <td class="pt-3">{{creator.gender}}</td>
               <td class="pt-3">{{creator.location}}</td>
               <td class="pt-3">0</td>
               <td class="text-muted pt-3">
@@ -95,25 +93,39 @@
               </td>
             </tr>
           </tbody>
-          
-          <footer class="card rounded-0 border-left-0 border-right-0 pt-2">
-            <div class="row justify-content-center">
-              <div class="btn-toolbar" role="toolbar">
-                <div class="btn-group" role="group">
-                  <button type="button" class="btn btn-outline-primary">
-                    <i class="fa fa-chevron-left"></i>
-                  </button>
-                  <button type="button" class="btn btn-outline-primary">1</button>
-                  <button type="button" class="btn btn-outline-primary">2</button>
-                  <button type="button" class="btn btn-outline-primary">3</button>
-                  <button type="button" class="btn btn-outline-primary">
-                    <i class="fa fa-chevron-right"></i>
-                  </button>
-                </div>
+        </table>
+
+        <footer class="container pt-5">
+          <div class="row justify-content-center">
+            <div class="btn-toolbar" role="toolbar">
+              <div class="btn-group" role="group">
+                <button 
+                  type="button" 
+                  class="btn btn-outline-primary"
+                  :disabled="current_page == 1">
+                  <i class="fa fa-chevron-left"></i>
+                </button>
+                <button 
+                    type="button" 
+                    :class="{ 
+                      'btn': true, 
+                      'btn-outline-primary': page != current_page, 
+                      'btn-light': page == current_page 
+                    }" 
+                    v-for="(page, index) in total_pages" :key="index"
+                    :disabled="total_pages == 1">
+                  {{page}}
+                </button>
+                <button 
+                  type="button" 
+                  class="btn btn-outline-primary"
+                  :disabled="total_pages < 2">
+                  <i class="fa fa-chevron-right"></i>
+                </button>
               </div>
             </div>
-          </footer>
-        </table>
+          </div>
+        </footer>
       </div>
     </div>
 
@@ -141,7 +153,8 @@ export default {
       creator_type: 'all',
       current_creator: {},
       limit: 10,
-      page: 1
+      current_page: 1,
+      total_pages: 0
     }
   },
   computed: {
@@ -158,27 +171,40 @@ export default {
       'getCreatorDetails'
     ]),
 
+    totalPages(number) {
+      let value = number/this.limit
+      if(parseInt(value) == 0) {
+        this.total_pages = 1
+      }else {
+        this.total_pages = parseInt(value)
+      }
+    },
+
     async fetchCreators(type) {
       switch(type) {
         case 'accepted':
           await this.getCreators('ACCEPTED', this.limit, this.page)
           this.creators = this.accepted_creators
           this.creator_type = 'accepted'
+          this.totalPages(this.accepted_creators.length)
           break
         case 'pending':
           await this.getCreators('PENDING', this.limit, this.page)
           this.creators = this.pending_creators
           this.creator_type = 'pending'
+          this.totalPages(this.pending_creators.length)
           break
         case 'rejected':
           await this.getCreators('REJECTED', this.limit, this.page)
           this.creators = this.rejected_creators
           this.creator_type = 'rejected'
+          this.totalPages(this.rejected_creators.length)
           break
         default:
           await this.getCreators('ALL', this.limit, this.page)
           this.creators = this.all_creators
           this.creator_type = 'all'
+          this.totalPages(this.all_creators.length)
           break
       }
     },
@@ -195,13 +221,6 @@ export default {
 </script>
 
 <style scoped>
-#users footer.card {
-  width: 73%;
-  height: 3.5rem;
-  position: fixed;
-  bottom: 0px;
-}
-
 #users .btn-link:hover,
 #users .btn-link:focus,
 #users .btn-link:active,

@@ -1,5 +1,5 @@
 <template>
-  <div class="user-profile">
+  <div class="user-profile" v-if="current_creator != null">
     <div class="user-details col-md-12 p-0">
       <div class="container">
 				<div class="d-flex justify-content-center py-3">
@@ -114,17 +114,17 @@
 
 				<div class="row mt-4">
 					<div class="col">
-						<button class="btn btn-outline-primary">Close Profile</button>
+						<button class="btn btn-outline-primary" @click="closeModal">Close Profile</button>
 					</div>
 
 					<div class="col-auto">
-						<button :disabled="current_creator.status == 'REJECTED' || current_creator.status == 'ACCEPTED'"
+						<button :disabled="disable = true || current_creator.status == 'REJECTED' || current_creator.status == 'ACCEPTED'"
 							type="button" 
 							class="btn btn-danger mr-2" 
 							@click="changeStatus('REJECTED')">
 							Reject
 						</button>
-						<button :disabled="current_creator.status == 'ACCEPTED' || current_creator.status == 'REJECTED'" 
+						<button :disabled="disable = true || current_creator.status == 'ACCEPTED' || current_creator.status == 'REJECTED'" 
 										type="button" 
 										class="btn btn-success ml-2" 
 										@click="changeStatus('ACCEPTED')">
@@ -141,20 +141,34 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "user-profile",
+	name: "user-profile",
+	data() {
+		return {
+			disable: false
+		}
+	},
   methods: {
 		...mapActions(['updateUserStatus']),
 		
     selectStatus(status) {
       this.status = status
 		},
+
+		closeModal() {
+			$(".bd-example-modal-lg").modal("hide")
+		},
 		
 		async changeStatus(status) {
 			let payload = { status, id: this.current_creator.id }
+			this.disable = true
 			let res = await this.updateUserStatus(payload)
 			if(res == true) {
 				alert('Creator status successfully updated')
-				$(".bd-example-modal-lg").modal("hide")
+				this.disable = false
+				this.closeModal()
+			}else {
+				alert('Error updating status, kindly try again')
+				this.disable = false
 			}
 		}
   },
