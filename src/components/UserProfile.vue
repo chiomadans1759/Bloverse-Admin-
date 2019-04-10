@@ -4,7 +4,7 @@
       <div class="container">
 				<div class="d-flex justify-content-center py-3">
 					<div class="profile-img-placeholder bg-primary" v-if="!current_creator.image_url">
-						<span class="text-white">
+						<span class="text-white text-uppercase">
 							{{`${current_creator.first_name.substring(0, 1)} ${current_creator.last_name.substring(0, 1)}`}}
 						</span>
 					</div>
@@ -14,11 +14,11 @@
 				<div class="row user-info px-3">
 					<div class="col-md-6 col-sm-6 mt-3">
 						<span>First Name</span>
-						<p class="text-dark">{{current_creator.first_name}}</p>
+						<p class="text-dark text-capitalize">{{current_creator.first_name}}</p>
 					</div>
 					<div class="col-md-6 col-sm-6 mt-3">
 						<span>Last Name</span>
-						<p class="text-dark">{{current_creator.last_name}}</p>
+						<p class="text-dark text-capitalize">{{current_creator.last_name}}</p>
 					</div>
 					<div class="col-md-6 col-sm-6 mt-3">
 						<span>Username</span>
